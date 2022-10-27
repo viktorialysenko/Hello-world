@@ -1,6 +1,9 @@
 //Global Variables
 int appWidth, appHeight;
 float centerX, centerY, xStart, yStart, widthRect, heightRect;
+color yellowNightMode=#F8FC90, purpleNightMode=#FA0096;
+float thin, normal, thick;
+boolean nightMode=false, randomBackground=false;
 void setup() {
   //Declaring display geometry: landscape, square, portrait
 size(2000, 400);//Able to deploy with fullScreen();
