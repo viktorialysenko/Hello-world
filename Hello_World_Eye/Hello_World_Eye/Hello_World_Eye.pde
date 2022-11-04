@@ -6,6 +6,7 @@ color yellowNightMode=#F9E8CB;//Hexidecimal
 float thin, normal, thick;
 Boolean grayScale=false, backgroundColour=false, nightMode=false;
 //
+//
 void setup() {
   //Declaring Display Geometry: landscape, square, portrait
   size(1000, 600); //Able to deploy with fullScreen();
