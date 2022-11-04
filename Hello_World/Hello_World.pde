@@ -1,25 +1,94 @@
 //Global Variables
 int appWidth, appHeight;
-//Declaring display geometry: landscape, square, portrait
-size(700, 400);//Able to deploy with fullScreen();
-appWidth = width;
-appHeight = height;
+float centerX, centerY, xStart, yStart, widthRect, heightRect, widthEllipse, heightEllipse,  widthPupil, heightPupil;
+color blackNightMode=#000000, yellow=#F9E8CB, black=#000000, white=#FFFFFF, blue=#A3ECF7;
+color yellowNightMode=#F9E8CB;//Hexidecimal
+float thin, normal, thick;
+Boolean grayScale=false, backgroundColour=false, nightMode=false;
 //
-//Concatenation: , or +(i.e space)
-println("\t\t\tWidth="+width,"\tHeight="+height);
-println("Display Monitor:","\twidth:"+displayWidth,"\theight:"+displayHeight);
 //
-//Fitting CANVAS into monitor display
-if (appWidth > displayWidth) appWidth=0;//CANVAS-width will not fit
-if (appHeight > displayHeight) appHeight=0;//CANVAS-width will not fit
+void setup() {
+  //Declaring Display Geometry: landscape, square, portrait
+  size(1000, 600); //Able to deploy with fullScreen();
+  //fullScreen();
+  appWidth = width;
+  appHeight = height;
+  //Concatenation: , or + (i.e space)
+  println("\t\t\tWidth="+width, "\tHeight="+height);
+  println("Display Monitor:", "\twidth:"+displayWidth, "\theight:"+displayHeight);
+  //
+  String ls="Landscape or Square", p="portrait", DO="Display Orientation", instruct="Bru, turn your phun";
+  //
+  if ( appWidth < appHeight ) { //Declaring Landscape & square
+    println(instruct);
+  } else {
+    println("Display: Good to Go");
+    if ( appWidth > displayWidth ) { //Fitting CANVAS into Monitor Display
+      appWidth=0;
+      appHeight=0;
+      println("STOP, is broken");
+    } else {
+      //Empty ELSE
+    }
+  }
+  //Population
+  centerX = appWidth * 1/2;
+  centerY = height * 1/2;
+  xStart = centerX - ( appWidth * 1/4 );
+  yStart  = centerY - ( height * 1/4 );
+  widthEllipse = appWidth * 1/2;
+  heightEllipse = height * 1/2;
+  widthPupil = appWidth * 1/5;
+  heightPupil = height * 1/2.2;
+  thin = appWidth / appWidth; //1
+  normal = appWidth * 1/70;
+  thick = appWidth * 1/35;
+} //End setup
 //
-//Outputting instructions to user when errors with above
+void draw() {
+  // New Background Function "covers" old gray scale background()
+  // Night Mode means background cannot have blue // change randome for night mode, hard code "0"
+  if ( grayScale == true ) background(100); //Gray Scale (0-255) & Blue Issue for night mode
+  //
+  //Casting Reminder
+  if ( backgroundColour == true ){ background( color( random(0 , 255), random(0 , 255), random(0 , 255) ) );
+  }
+  if ( nightMode == true )
+  {
+    background( blackNightMode ); 
+    fill( yellowNightMode ); 
+  } else {
+   stroke( yellow ); 
+  fill( white ); 
+}
+strokeWeight( thick );
+ ellipse(centerX, centerY, widthEllipse, heightEllipse);
+ if ( nightMode == true )
+  {
+   stroke( yellowNightMode );
+ fill( yellowNightMode );
+ heightPupil=height * 1/5;
+  } else { stroke( blue );
+  heightPupil=height * 1/2.2;
+ strokeWeight(15);
+ fill( black );
+}
+ellipse(centerX, centerY, widthPupil, heightPupil);  
+  fill( white ); //default reset
+  stroke( blackNightMode ); //default reset
+  strokeWeight(1); //default reset
+} //End draw
 //
-if(appWidth==0 || appHeight==0) println("STOP, is broken");// || means OR
-if(appWidth!=0 && appHeight!=0) println("Display: Good to go");// && means AND
-//Bru, turn your phum
-String ls="landscape or Square", p="portrait", DO="Display Orientation", instruct="Bruh, turn your phone"
-String orientation=( appWidth > appHeight) ? ls : p ;
-println(DO, orientation);
-if(orientation == p) print(instruct);// Later, output to CANVAS
+void keyPressed() {
+  grayScale = false;
+  backgroundColour = false;
+  if ( key == 'G' || key == 'g' ) grayScale = true;
+  if ( key == 'B' || key == 'b' ) backgroundColour = true;
+} //End keyPressed
+void mousePressed() {
+  if ( mouseButton == LEFT ) nightMode = true;
+  if ( mouseButton == RIGHT ) nightMode = false;
+} //End mousePressed
+
 //
+// End Main Program
